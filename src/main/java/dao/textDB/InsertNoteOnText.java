@@ -87,8 +87,8 @@ public class InsertNoteOnText {
         			String sbLine = sb.toString();
         			String[] sbLines = sbLine.split("\r\n", 0);
 
-        			/** 新規登録するnoteのIDを格納する(既存レコード数(csv行数)に1を加えた数をIDとして格納する) */
-        			int newLineNum = sbLines.length + 1;
+        			/** 新規登録するnoteのIDを格納する(既存レコード数をIDとして格納する(0番目にはnotebookID.csvのタイトル情報を格納)) */
+        			int newLineNum = sbLines.length;
 
                     /** csvファイルを更新する
                      * ファイル読み込み処理で取得したcsvファイル情報をcsvファイルに書き込む
@@ -100,7 +100,7 @@ public class InsertNoteOnText {
 
             			/** 新規登録データの親IDに指定されたデータかどうか（＝更新するデータであること）を判別する */
         				if(!noteReqBean.ParentID.equals("") //親IDが空欄ではない場合
-            					&& (i + 1) == Integer.parseInt(noteReqBean.ParentID)) { //親IDと一致するデータの場合
+            					&& (i == Integer.parseInt(noteReqBean.ParentID))) { //親IDと一致するデータの場合
         					/** 更新対象のデータの場合 */
 
             				/** 文字列をデリミタで分割し、配列に格納
