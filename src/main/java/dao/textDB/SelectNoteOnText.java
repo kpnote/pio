@@ -15,7 +15,7 @@ public class SelectNoteOnText {
     	PrintLogger printLogger = new PrintLogger(SelectNoteOnText.class);
 
     	/** propertiesファイルの情報を取得 */
-    	ResourceBundle resouce = ResourceBundle.getBundle("config");
+    	ResourceBundle resource = ResourceBundle.getBundle("config");
 
         StringBuffer sb = new StringBuffer();
 
@@ -25,7 +25,7 @@ public class SelectNoteOnText {
 
             //ファイルを読み込む
             //FileReader fr = new FileReader("C:\\Users\\home401\\Source\\Repos\\PDCALinkWeb40\\PDCALink\\www\\" + notebookID + ".csv");
-            FileReader fr = new FileReader(resouce.getString("notebookDir") + notebookID + ".csv");
+            FileReader fr = new FileReader(resource.getString("notebookDir") + notebookID + ".csv");
             BufferedReader br = new BufferedReader(fr);
 
             //読み込んだファイルを１行ずつ画面出力する

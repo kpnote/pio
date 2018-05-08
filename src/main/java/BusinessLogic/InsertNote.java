@@ -22,7 +22,7 @@ public class InsertNote extends HttpServlet {
             throws IOException, ServletException {
 
         /** propertiesファイルの情報を取得 */
-    	ResourceBundle resouce = ResourceBundle.getBundle("config");
+    	ResourceBundle resource = ResourceBundle.getBundle("config");
 
     	StringBuffer outputText;
     	NoteReqBean noteReqBean = new NoteReqBean();
@@ -52,7 +52,7 @@ public class InsertNote extends HttpServlet {
 
     	/** responseのcontentTypeを指定 */
     	//res.setContentType("text/plain;charset=utf-8");
-    	res.setContentType(resouce.getString("resContentType"));
+    	res.setContentType(resource.getString("resContentType"));
 
     	PrintWriter out = res.getWriter();
         out.println(new String(outputText));

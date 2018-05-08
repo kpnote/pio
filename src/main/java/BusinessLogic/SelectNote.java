@@ -20,7 +20,7 @@ public class SelectNote extends HttpServlet {
             throws IOException, ServletException {
 
         /** propertiesファイルの情報を取得 */
-    	ResourceBundle resouce = ResourceBundle.getBundle("config");
+    	ResourceBundle resource = ResourceBundle.getBundle("config");
 
     	StringBuffer outputText;
 
@@ -38,7 +38,7 @@ public class SelectNote extends HttpServlet {
 
     	/** responseのcontentTypeを指定 */
     	//res.setContentType("text/plain;charset=utf-8");
-    	res.setContentType(resouce.getString("resContentType"));
+    	res.setContentType(resource.getString("resContentType"));
 
     	/** responseのgetWriter()を使用し、クライアントに文字列データを返すPrintWriterオブジェクトを作成 */
     	PrintWriter out = res.getWriter();

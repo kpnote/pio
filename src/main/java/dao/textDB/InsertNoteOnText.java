@@ -24,11 +24,11 @@ public class InsertNoteOnText {
     	System.out.println("Insert Start:" + System.currentTimeMillis());
 
         /** propertiesファイルの情報を取得 */
-    	ResourceBundle resouce = ResourceBundle.getBundle("config");
+    	ResourceBundle resource = ResourceBundle.getBundle("config");
 
     	/** notebookID.csvファイル格納フォルダパス */
 		//final String folderPath = "C:\\Users\\home401\\Source\\Repos\\PDCALinkWeb40\\PDCALink\\www\\";
-		final String folderPath = resouce.getString("notebookDir");
+		final String folderPath = resource.getString("notebookDir");
 
 		/** notebookID格納用変数 */
 		final String notebookID = noteReqBean.notebookID;
