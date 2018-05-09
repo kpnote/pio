@@ -9,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 import Beans.NoteReqBean;
@@ -17,13 +18,12 @@ import util.PrintLogger;
 public class InsertNoteOnText {
 
 	/** Log出力用PrintLoggerを作成 */
-	PrintLogger printLogger = new PrintLogger(SelectNoteOnText.class);
+	PrintLogger printLogger = new PrintLogger(InsertNoteOnText.class.getName());
 
     /** ファイル書き込み処理で排他制御を行う為、synchronizedメソッドとする */
 	synchronized public StringBuffer execute(NoteReqBean noteReqBean) {
-    	System.out.println("Insert Start:" + System.currentTimeMillis());
 
-        /** propertiesファイルの情報を取得 */
+		/** propertiesファイルの情報を取得 */
     	ResourceBundle resource = ResourceBundle.getBundle("config");
 
     	/** notebookID.csvファイル格納フォルダパス */
@@ -90,6 +90,9 @@ public class InsertNoteOnText {
         			/** 新規登録するnoteのIDを格納する(既存レコード数をIDとして格納する(0番目にはnotebookID.csvのタイトル情報を格納)) */
         			int newLineNum = sbLines.length;
 
+        			/** 日時を取得（noteの更新日時、新規登録日時に使用） */
+        			LocalDateTime localDateTime = LocalDateTime.now();
+
                     /** csvファイルを更新する
                      * ファイル読み込み処理で取得したcsvファイル情報をcsvファイルに書き込む
                      * 新規登録データの親IDに指定されたデータに対しては、
@@ -116,7 +119,8 @@ public class InsertNoteOnText {
             				filewriter.write("\""     + sbLineTmp[0]
                 					+ "\",\"" + sbLineTmp[1]
                 					+ "\",\"" + sbLineTmp[2]
-                					+ "\",\"" + sbLineTmp[3]
+                					//+ "\",\"" + sbLineTmp[3]
+                        			+ "\",\"" + localDateTime	/** 更新日時を書き込む */
                 					+ "\",\"" + sbLineTmp[4]
                 					+ "\",\"" + sbLineTmp[5]
                 					+ "\",\"" + sbLineTmp[6]
@@ -134,7 +138,8 @@ public class InsertNoteOnText {
         			//filewriter.write("\""     + noteBean.ID
         			filewriter.write("\""     + newLineNum
         					  		+ "\",\"" + noteReqBean.ChildIDTags
-        					  		+ "\",\"" + noteReqBean.CreateDate
+        					  		//+ "\",\"" + noteReqBean.CreateDate
+        					  		+ "\",\"" + localDateTime	/** 作成日時を書き込む */
         					  		+ "\",\"" + noteReqBean.UpdateDate
         					  		+ "\",\"" + noteReqBean.DeleteDate
         					  		+ "\",\"" + noteReqBean.PDCAPhase

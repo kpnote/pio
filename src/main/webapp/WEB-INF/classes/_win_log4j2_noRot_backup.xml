@@ -5,28 +5,15 @@
       <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
     </Console>
 
-    <RollingFile
-      name="AccessLogFile"
-      fileName="C:\develop\tomcat80\logs\tomcat_access.log"
-      filePattern="C:\develop\tomcat80\logs\tomcat_access.%d{yyyy-MM-dd}.log"
-    >
+    <File name="AccessLogFile" fileName="C:\develop\tomcat80\logs\tomcat_access.log">
       <PatternLayout>
-        <Pattern>%d %p %logger{36} [%t] %m%n</Pattern>
+        <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
       </PatternLayout>
-
-      <TimeBasedTriggeringPolicy />
-        <DefaultRolloverStrategy>
-          <Delete basePath="C:\develop\tomcat80\logs" maxDepth="1">
-            <IfFileName glob="tomcat_access*.log.gz" />
-            <IfLastModified age="30d" />
-          </Delete>
-      </DefaultRolloverStrategy>
-
-    </RollingFile>
+    </File>
 
     <File name="ErrorLogFile" fileName="C:\develop\tomcat80\logs\tomcat_error.log">
       <PatternLayout>
-        <Pattern>%d %p %logger{36} [%t] %m%n</Pattern>
+        <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
       </PatternLayout>
     </File>
   </Appenders>

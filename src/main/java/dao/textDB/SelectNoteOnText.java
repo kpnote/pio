@@ -12,7 +12,7 @@ public class SelectNoteOnText {
     public StringBuffer execute(String notebookID) {
 
     	/** Log出力用PrintLoggerを作成 */
-    	PrintLogger printLogger = new PrintLogger(SelectNoteOnText.class);
+    	PrintLogger printLogger = new PrintLogger(SelectNoteOnText.class.getName());
 
     	/** propertiesファイルの情報を取得 */
     	ResourceBundle resource = ResourceBundle.getBundle("config");

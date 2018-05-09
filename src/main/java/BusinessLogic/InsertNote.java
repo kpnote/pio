@@ -13,11 +13,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import Beans.NoteReqBean;
 import dao.NoteDAO;
+import util.PrintLogger;
 import util.Utility;
 
 @WebServlet(name = "InsertNote", urlPatterns = { "/InsertNote" })
 public class InsertNote extends HttpServlet {
-    @Override
+
+	/** Log出力用PrintLoggerを作成 */
+	PrintLogger printLogger = new PrintLogger(InsertNote.class.getName());
+
+	@Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res)
             throws IOException, ServletException {
 
@@ -30,6 +35,7 @@ public class InsertNote extends HttpServlet {
     	//入力チェック用として共通関数を呼び出す
     	Utility utility = new Utility();
 
+    	/** 新規登録するnoteの情報 */
     	noteReqBean.ID 				= utility.replaceInput(req.getParameter("ID"));
     	noteReqBean.ChildIDTags		= utility.replaceInput(req.getParameter("ChildIDTags"));
     	noteReqBean.CreateDate		= utility.replaceInput(req.getParameter("CreateDate"));
@@ -40,8 +46,25 @@ public class InsertNote extends HttpServlet {
     	noteReqBean.ContentDesc		= utility.replaceInput(req.getParameter("ContentDesc"));
     	noteReqBean.ContentStatus	= utility.replaceInput(req.getParameter("ContentStatus"));
 
+    	/** 更新対象のnotebookID */
     	noteReqBean.notebookID		= utility.replaceInput(req.getParameter("notebookID"));
+    	/** 更新対象のnoteのID(ParentID) */
     	noteReqBean.ParentID		= utility.replaceInput(req.getParameter("ParentID"));
+
+    	/** request情報をログに出力 */
+    	printLogger.info(req.getRemoteAddr()	/** IPアドレス */
+				+ "," + noteReqBean.ID
+				+ "," + noteReqBean.ChildIDTags
+		    	+ "," + noteReqBean.CreateDate
+		    	+ "," + noteReqBean.UpdateDate
+		    	+ "," + noteReqBean.DeleteDate
+		    	+ "," + noteReqBean.PDCAPhase
+		    	+ "," + noteReqBean.ContentTitle
+		    	+ "," + noteReqBean.ContentDesc
+		    	+ "," + noteReqBean.ContentStatus
+		    	+ "," + noteReqBean.notebookID
+		    	+ "," + noteReqBean.ParentID
+		    	);
 
     	/** NoteDAOオブジェクトを作成 */
     	NoteDAO noteDAO = new NoteDAO();
