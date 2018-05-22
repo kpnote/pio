@@ -1,8 +1,8 @@
 package util;
 
-public class Utility {
+public class ReplaceInput {
 
-	public String replaceInput(String inputData){
+	public String doReplaceInput(String inputData){
 	    String outputData = inputData;
 
 	    outputData = outputData.replace("&", "&amp;");

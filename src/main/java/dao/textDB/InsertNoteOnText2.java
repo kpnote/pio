@@ -25,10 +25,10 @@ import util.FileMove;
 import util.MakeFileLock;
 import util.PrintLogger;
 
-public class InsertNoteOnText {
+public class InsertNoteOnText2 {
 
 	/** Log出力用PrintLoggerを作成 */
-	PrintLogger printLogger = new PrintLogger(InsertNoteOnText.class.getName());
+	PrintLogger printLogger = new PrintLogger(InsertNoteOnText2.class.getName());
 
 	public StringBuffer execute(NoteReqBean noteReqBean) {
 
@@ -73,7 +73,7 @@ public class InsertNoteOnText {
 
         	/** ロックファイルをロックする */
         	MakeFileLock makeFileLock = new MakeFileLock();
-        	FileLock lock = makeFileLock.doMakeFileLock(channel, maxFileLockWaitTime, InsertNoteOnText.class.getName());
+        	FileLock lock = makeFileLock.doMakeFileLock(channel, maxFileLockWaitTime, InsertNoteOnText2.class.getName());
 
         	/** notebookID.csvに対する読み込み及び、書き込みの処理 */
         	try {
@@ -88,8 +88,9 @@ public class InsertNoteOnText {
                     //FileReader fr = new FileReader(filePath);
                     //BufferedReader br = new BufferedReader(fr);
 
-                    /** ファイルの内容を１行ずつ読み込む */
+                    /** 読み込んだファイルを１行ずつ画面出力する */
                     String line;
+
                     while ((line = br.readLine()) != null) {
 //                        System.out.println(++lineCount + "行目：" + line);
                         sb.append(line);
@@ -132,49 +133,44 @@ public class InsertNoteOnText {
                          *  */
             			for (int i = 0; i < sbLines.length; i++) {
 //                            System.out.println((i+1) + "行目：" + sbLines[i] + "\r\n");
-//
-//                			/** 新規登録データの親IDに指定されたデータかどうか（＝更新するデータであること）を判別する */
-//            				if(!noteReqBean.ParentID.equals("") //親IDが空欄ではない場合
-//                					&& (i == Integer.parseInt(noteReqBean.ParentID))) { //親IDと一致するデータの場合
-//            					/** 更新対象のデータの場合 */
-//
-//                				/** 文字列をデリミタで分割し、配列に格納
-//                				 * splitについては、分割された後で最後の項目が空白の場合でも配列に格納されるように、
-//                				 * 第二引数に-1を設定
-//                				 *  */
-//                				String[] sbLineTmp = sbLines[i].substring(1, sbLines[i].length() -1).split("\",\"", -1);
-//
-//                				/** 新規登録データの親IDとして指定されたデータのChildIDTagsの頭に新規登録データのIDを設定 */
-//                				sbLineTmp[1] = sbLineTmp[1] + " " + newLineNum;
-//
-//                    			/** csvの内容をファイルに書き込み */
-//                				filewriter.write("\""     + sbLineTmp[0]
-//                    					+ "\",\"" + sbLineTmp[1]
-//                    					+ "\",\"" + sbLineTmp[2]
-//                    					//+ "\",\"" + sbLineTmp[3]
-//                            			+ "\",\"" + localDateTime	/** 更新日時を書き込む */
-//                    					+ "\",\"" + sbLineTmp[4]
-//                    					+ "\",\"" + sbLineTmp[5]
-//                    					+ "\",\"" + sbLineTmp[6]
-//                            			+ "\",\"" + sbLineTmp[7]
-//                                    	+ "\",\"" + sbLineTmp[8]
-//            					  		+ "\"\r\n");
-//                			} else {
-//            					/** 更新対象のデータではない場合 */
-//                    			/** csvの内容をテンポラリファイルに書き込み*/
-//                    			filewriter.write(sbLines[i] + "\r\n");
-//                			}
 
-            				/** 更新対象のデータではない場合 */
-                			/** csvの内容をテンポラリファイルに書き込み*/
-                			filewriter.write(sbLines[i] + "\r\n");
+                			/** 新規登録データの親IDに指定されたデータかどうか（＝更新するデータであること）を判別する */
+            				if(!noteReqBean.ParentID.equals("") //親IDが空欄ではない場合
+                					&& (i == Integer.parseInt(noteReqBean.ParentID))) { //親IDと一致するデータの場合
+            					/** 更新対象のデータの場合 */
+
+                				/** 文字列をデリミタで分割し、配列に格納
+                				 * splitについては、分割された後で最後の項目が空白の場合でも配列に格納されるように、
+                				 * 第二引数に-1を設定
+                				 *  */
+                				String[] sbLineTmp = sbLines[i].substring(1, sbLines[i].length() -1).split("\",\"", -1);
+
+                				/** 新規登録データの親IDとして指定されたデータのChildIDTagsの頭に新規登録データのIDを設定 */
+                				sbLineTmp[1] = sbLineTmp[1] + " " + newLineNum;
+
+                    			/** csvの内容をファイルに書き込み */
+                				filewriter.write("\""     + sbLineTmp[0]
+                    					+ "\",\"" + sbLineTmp[1]
+                    					+ "\",\"" + sbLineTmp[2]
+                    					//+ "\",\"" + sbLineTmp[3]
+                            			+ "\",\"" + localDateTime	/** 更新日時を書き込む */
+                    					+ "\",\"" + sbLineTmp[4]
+                    					+ "\",\"" + sbLineTmp[5]
+                    					+ "\",\"" + sbLineTmp[6]
+                            			+ "\",\"" + sbLineTmp[7]
+                                    	+ "\",\"" + sbLineTmp[8]
+            					  		+ "\"\r\n");
+                			} else {
+            					/** 更新対象のデータではない場合 */
+                    			/** csvの内容をテンポラリファイルに書き込み*/
+                    			filewriter.write(sbLines[i] + "\r\n");
+                			}
                         }
 
                         /** 新規登録データ（noteBeanに格納された情報）をテンポラリファイルに書き込む */
             			//filewriter.write("\""     + noteBean.ID
             			filewriter.write("\""     + newLineNum
-            					  		//+ "\",\"" + noteReqBean.ChildIDTags
-            					  		+ "\",\"" + "#" + noteReqBean.ParentID + "#" /** セパレータ#で囲む */
+            					  		+ "\",\"" + noteReqBean.ChildIDTags
             					  		//+ "\",\"" + noteReqBean.CreateDate
             					  		+ "\",\"" + localDateTime	/** 作成日時を書き込む */
             					  		+ "\",\"" + noteReqBean.UpdateDate
@@ -190,7 +186,7 @@ public class InsertNoteOnText {
             			/** テンポラリファイルをnotebook.csvとして移動（上書き）する */
             			//Files.move(Paths.get(tempfilePath), Paths.get(filePath), StandardCopyOption.REPLACE_EXISTING);
             			FileMove filemove = new FileMove();
-            			filemove.doFileMove(tempfilePath, filePath, maxFileLockWaitTime, InsertNoteOnText.class.getName());
+            			filemove.doFileMove(tempfilePath, filePath, maxFileLockWaitTime, InsertNoteOnText2.class.getName());
 
             		}catch(IOException e){
             			e.printStackTrace();

@@ -1,10 +1,13 @@
 package dao;
 
+import java.io.File;
 import java.io.IOException;
 
 import Beans.NoteReqBean;
+import Beans.NotebookBean;
 import dao.textDB.SelectNoteOnText;
 import dao.textDB.InsertNoteOnText;
+import dao.textDB.ListNotebookOnText;
 
 /* NoteDAO
  * 当初はデータをTextDBに格納するが、別DBへの格納も検討した結果、NoteDAOでラップすることとした。
@@ -28,5 +31,20 @@ public class NoteDAO {
 		text = insertNoteOnText.execute(noteReqBean);
 
 		return text;
+	}
+
+	/** ListNotebookDAOメソッド
+	 * 対象となるnotebook格納ディレクトリに格納されたファイル名の一覧を取得
+	 * @param String notebookDirectoryName
+	 * @return Files[] ファイル一覧
+	 *  */
+	public NotebookBean[] ListNotebookDAO(String notebookDirectoryName) throws IOException{
+
+		NotebookBean[] notebookBean = null;
+
+		ListNotebookOnText listNotebookOnText = new ListNotebookOnText();
+		notebookBean = listNotebookOnText.execute(notebookDirectoryName);
+
+		return notebookBean;
 	}
 }

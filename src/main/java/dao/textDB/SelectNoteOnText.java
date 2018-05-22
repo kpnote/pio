@@ -21,7 +21,7 @@ public class SelectNoteOnText {
 
         try {
         	/** select処理開始時間を出力 */
-        	printLogger.debug("Select Start:" + System.currentTimeMillis());
+        	printLogger.debug("Select Start");
 
             //ファイルを読み込む
             //FileReader fr = new FileReader("C:\\Users\\home401\\Source\\Repos\\PDCALinkWeb40\\PDCALink\\www\\" + notebookID + ".csv");
@@ -42,7 +42,7 @@ public class SelectNoteOnText {
             fr.close();
 
         	/** select処理開始時間を出力 */
-        	printLogger.debug("Select End:" + System.currentTimeMillis());
+        	printLogger.debug("Select End");
 
         } catch (IOException ex) {
             //例外発生時処理

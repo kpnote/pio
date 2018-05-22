@@ -22,12 +22,16 @@ public class PrintLogger {
 	public void debug(String outputLine) {
 		logger.debug(outputLine);
 	}
-
+	public void info(String outputLine) {
+		logger.info(outputLine);
+	}
+	public void warn(String outputLine) {
+		logger.warn(outputLine);
+	}
 	public void error(String outputLine) {
 		logger.error(outputLine);
 	}
-
-	public void info(String outputLine) {
-		logger.info(outputLine);
+	public void fatal(String outputLine) {
+		logger.fatal(outputLine);
 	}
 }

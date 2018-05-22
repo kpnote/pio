@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import Beans.NoteReqBean;
 import dao.NoteDAO;
 import util.PrintLogger;
-import util.Utility;
+import util.ReplaceInput;
 
 @WebServlet(name = "InsertNote", urlPatterns = { "/InsertNote" })
 public class InsertNote extends HttpServlet {
@@ -29,27 +29,30 @@ public class InsertNote extends HttpServlet {
         /** propertiesファイルの情報を取得 */
     	ResourceBundle resource = ResourceBundle.getBundle("config");
 
+    	/** リクエストで渡されたファイル名の内容を格納する変数を作成 */
     	StringBuffer outputText;
+
+    	/** 新規登録するnoteの情報を格納するbeanを作成 */
     	NoteReqBean noteReqBean = new NoteReqBean();
 
-    	//入力チェック用として共通関数を呼び出す
-    	Utility utility = new Utility();
+    	/** 入力チェック用として共通関数を呼び出す */
+    	ReplaceInput replaceInput = new ReplaceInput();
 
     	/** 新規登録するnoteの情報 */
-    	noteReqBean.ID 				= utility.replaceInput(req.getParameter("ID"));
-    	noteReqBean.ChildIDTags		= utility.replaceInput(req.getParameter("ChildIDTags"));
-    	noteReqBean.CreateDate		= utility.replaceInput(req.getParameter("CreateDate"));
-    	noteReqBean.UpdateDate		= utility.replaceInput(req.getParameter("UpdateDate"));
-    	noteReqBean.DeleteDate		= utility.replaceInput(req.getParameter("DeleteDate"));
-    	noteReqBean.PDCAPhase		= utility.replaceInput(req.getParameter("PDCAPhase"));
-    	noteReqBean.ContentTitle	= utility.replaceInput(req.getParameter("ContentTitle"));
-    	noteReqBean.ContentDesc		= utility.replaceInput(req.getParameter("ContentDesc"));
-    	noteReqBean.ContentStatus	= utility.replaceInput(req.getParameter("ContentStatus"));
+    	noteReqBean.ID 				= replaceInput.doReplaceInput(req.getParameter("ID"));
+    	noteReqBean.ChildIDTags		= replaceInput.doReplaceInput(req.getParameter("ChildIDTags"));
+    	noteReqBean.CreateDate		= replaceInput.doReplaceInput(req.getParameter("CreateDate"));
+    	noteReqBean.UpdateDate		= replaceInput.doReplaceInput(req.getParameter("UpdateDate"));
+    	noteReqBean.DeleteDate		= replaceInput.doReplaceInput(req.getParameter("DeleteDate"));
+    	noteReqBean.PDCAPhase		= replaceInput.doReplaceInput(req.getParameter("PDCAPhase"));
+    	noteReqBean.ContentTitle	= replaceInput.doReplaceInput(req.getParameter("ContentTitle"));
+    	noteReqBean.ContentDesc		= replaceInput.doReplaceInput(req.getParameter("ContentDesc"));
+    	noteReqBean.ContentStatus	= replaceInput.doReplaceInput(req.getParameter("ContentStatus"));
 
     	/** 更新対象のnotebookID */
-    	noteReqBean.notebookID		= utility.replaceInput(req.getParameter("notebookID"));
+    	noteReqBean.notebookID		= replaceInput.doReplaceInput(req.getParameter("notebookID"));
     	/** 更新対象のnoteのID(ParentID) */
-    	noteReqBean.ParentID		= utility.replaceInput(req.getParameter("ParentID"));
+    	noteReqBean.ParentID		= replaceInput.doReplaceInput(req.getParameter("ParentID"));
 
     	/** request情報をログに出力 */
     	printLogger.info(req.getRemoteAddr()	/** IPアドレス */
@@ -69,7 +72,7 @@ public class InsertNote extends HttpServlet {
     	/** NoteDAOオブジェクトを作成 */
     	NoteDAO noteDAO = new NoteDAO();
 
-    	//リクエストで渡されたファイル名の内容を取得する
+    	/** クエストで渡されたファイル名の内容を取得する */
     	// testweb.TextFileReadSample.mainを呼び出して出力を行う
     	outputText = noteDAO.InsertNoteDAO(noteReqBean);
 
