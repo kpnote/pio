@@ -20,7 +20,7 @@ import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
-import Beans.NoteReqBean;
+import beans.NoteReqBean;
 import util.FileMove;
 import util.MakeFileLock;
 import util.PrintLogger;

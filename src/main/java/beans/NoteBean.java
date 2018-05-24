@@ -1,6 +1,6 @@
-package Beans;
+package beans;
 
-public class NoteReqBean {
+public class NoteBean {
 
 	public String ID;
 	public String ChildIDTags;
@@ -11,9 +11,6 @@ public class NoteReqBean {
 	public String ContentTitle;
 	public String ContentDesc;
 	public String ContentStatus;
-
-	public String notebookID;
-	public String ParentID;
 
 	public String getID() {
 		return ID;
@@ -68,19 +65,6 @@ public class NoteReqBean {
 	}
 	public void setContentStatus(String contentStatus) {
 		ContentStatus = contentStatus;
-	}
-
-	public String getNotebookID() {
-		return notebookID;
-	}
-	public void setNotebookID(String notebookID) {
-		this.notebookID = notebookID;
-	}
-	public String getParentID() {
-		return ParentID;
-	}
-	public void setParentID(String parentID) {
-		ParentID = parentID;
 	}
 
 }

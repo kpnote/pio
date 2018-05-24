@@ -8,10 +8,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-import Beans.NotebookBean;
+import beans.NotebookBean;
 import util.PrintLogger;
 
 public class ListNotebookOnText {
@@ -53,7 +55,7 @@ public class ListNotebookOnText {
         	/** 対象ディレクトリのFileオブジェクトを作成 */
         	File dir = new File(targetFolderPath);
 
-        	/** 対象ディレクトリの".csv"で終わるファイル名の情報を格納 */
+        	/** 対象ディレクトリでファイル名が".csv"で終わるファイルの一覧を取得して格納 */
         	files = dir.listFiles(new FileFilter() {
         		@Override
         		public boolean accept(File pathname) {
@@ -61,43 +63,58 @@ public class ListNotebookOnText {
         		}
         	});
 
+        	if (notebookCategoryName.indexOf("__") < 0) {
+        		/** ファイル一覧の情報に対して、更新日を見て降順に並び替え */
+            	Arrays.sort(files, new Comparator<File>() {
+            		public int compare(File f1, File f2) {
+            			if ((f1.lastModified() - f2.lastModified()) < 0) {
+            				return 1;
+            			} else if ((f1.lastModified() - f2.lastModified()) > 0) {
+            				return -1;
+            			} else {
+            				return 0;
+            			}
+            		}
+            	} );
+        	}
+
         	/** notebookBeanのサイズにfiles.lengthを指定 */
         	notebookBean = new NotebookBean[files.length];
 
         	/** 日時出力用フォーマットを作成 */
         	SimpleDateFormat jsJpSdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
 
-    		/** 取得したfilesの情報をnotebookBeanにセットする */
+    		/** csv一覧に対して一レコードずつ参照し、notebookBeanにnotebookID.csvの情報をセットする */
         	for(int i = 0; i < files.length; i++) {
 
-        		/** notebookBeanのインスタンスを作成する */
+        		/** notebookBeanのインスタンスを作成して、notebookBeanのi番目に格納 */
         		notebookBean[i] = new NotebookBean();
 
-        		/** ディレクトリのpathで使われているセパレータを見て、Linux環境（/）かWindows環境（\\）かを確認してnotebookID(1、2、・・・）をセットする */
+        		/** Directoryをセットする */
+        		notebookBean[i].setDirectory(notebookCategoryName);
+
+        		/** NotebookIDをセットする */
         		int from = 0;
         		int to = files[i].getPath().lastIndexOf(".");
+        		/** ディレクトリのpathで使われているセパレータを見て、Linux環境（/）かWindows環境（\\）かを確認する */
         		if( files[i].getPath().lastIndexOf(resource.getString("serverPathSeparetorLinux")) > 0 ) {
             		from = files[i].getPath().lastIndexOf(resource.getString("serverPathSeparetorLinux"));
         		} else {
             		from = files[i].getPath().lastIndexOf(resource.getString("serverPathSeparetorWindows")) + 1;
         		}
-        		notebookBean[i].setNotebookID(files[i].getPath().substring(from, to));
+        		/** getPathでディレクトリフルパスの最後のセパレータ文字列と「.」の間にある文字列を取得して、NotebookIDとして格納 */
+        		notebookBean[i].setID(files[i].getPath().substring(from, to));
 
-        		/** Directoryをセットする */
-        		notebookBean[i].setDirectory(notebookCategoryName);
-
-        		/** 最終更新日時をミリ秒でセットする */
+        		/** UpdateDateをセットする （最終更新日時をミリ秒でセットする） */
         		Date date = new Date(files[i].lastModified());
         		notebookBean[i].setUpdateDate(jsJpSdf.format(date).toString());
 
-        		/** notebook.csvの1行目を取得し、タイトル（〇〇の件）を取得する */
-
-        		/** notebook.csvを開く（エラーの場合は処理を終了する） */
-                /** ファイルを読み込む */
-                try (	FileInputStream fis = new FileInputStream(files[i].getPath());
+        		/** notebook.csvの1行目を取得し、項目を取得してセットする */
+                try (	/** ファイルを読み込む */
+                		FileInputStream fis = new FileInputStream(files[i].getPath()); //
                     	InputStreamReader isr = new InputStreamReader(fis, resource.getString("fileCharSetName"));
                     	BufferedReader br = new BufferedReader(isr);
-                		){
+                	){
 
                     /** 読み込んだファイルから１行読み込む */
     				String line = br.readLine();
@@ -108,11 +125,34 @@ public class ListNotebookOnText {
     				 *  */
     				String[] sbLineTmp = line.substring(1, line.length() -1).split("\",\"", -1);
 
+            		/** ChildIDTagsをセットする*/
+            		notebookBean[i].setChildIDTags(sbLineTmp[1]);
+
+            		/** CreateDateをセットする*/
+            		notebookBean[i].setCreateDate(sbLineTmp[2]);
+
+            		///** UpdateDateをセットする*/
+            		//notebookBean[i].setUpdateDate(sbLineTmp[3]);
+
+            		/** DeleteDateをセットする*/
+            		notebookBean[i].setDeleteDate(sbLineTmp[4]);
+
+            		/** PDCAPhaseをセットする*/
+            		notebookBean[i].setPDCAPhase(sbLineTmp[5]);
+
+            		/** NotebookTitle（〇〇の件）をセットする*/
+            		notebookBean[i].setContentTitle(sbLineTmp[6]);
+
+            		/** ContentDescをセットする*/
+            		notebookBean[i].setContentDesc(sbLineTmp[7]);
+
+            		/** ContentStatusをセットする*/
+            		notebookBean[i].setContentStatus(sbLineTmp[8]);
+
                 } catch (IOException ex) {
                     /** 例外発生時処理 */
                     ex.printStackTrace();
                 }
-
         	}
 
         	/** select処理開始時間を出力 */

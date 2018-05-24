@@ -20,7 +20,7 @@ public class MakeFileLock {
         			break;
         		}
         	} catch (Exception ex) {
-                /** 例外発生時（ファイルロックを作成できない場合）は1秒待つ */
+                /** 例外発生時（ファイルロックを作成できない場合）は0.1秒待つ */
             	Thread.sleep(100L);
             }
     	}

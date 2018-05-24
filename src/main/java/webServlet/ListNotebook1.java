@@ -1,6 +1,7 @@
-package BusinessLogic;
+package webServlet;
 
 import java.io.IOException;
+
 import java.io.PrintWriter;
 import java.util.ResourceBundle;
 
@@ -10,41 +11,48 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import beans.NoteReqBean;
 import dao.NoteDAO;
+import util.PrintLogger;
+import util.ReplaceInput;
 
-@WebServlet(name = "SelectNote", urlPatterns = { "/SelectNote" })
-public class SelectNote extends HttpServlet {
+@WebServlet(name = "ListNotebook1", urlPatterns = { "/ListNotebook1" })
+public class ListNotebook1 extends HttpServlet {
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse res)
+	/** Log出力用PrintLoggerを作成 */
+	PrintLogger printLogger = new PrintLogger(ListNotebook1.class.getName());
+
+	@Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse res)
             throws IOException, ServletException {
 
         /** propertiesファイルの情報を取得 */
     	ResourceBundle resource = ResourceBundle.getBundle("config");
 
-    	StringBuffer outputText;
-
-    	/** リクエストからファイル名を取得する */
-    	//（リクエスト http://localhost:8080/pio/selectNote?filename=sample.csvの情報を取得する）
-    	String notebookID = req.getParameter("notebookID");
-    	java.lang.System.out.println(notebookID);
-
     	/** NoteDAOオブジェクトを作成 */
     	NoteDAO noteDAO = new NoteDAO();
 
-    	/** リクエストで渡されたファイル名の内容を取得する */
+    	/** リクエストからファイル名を取得する */
+    	String notebookID = req.getParameter("notebookID");
+    	java.lang.System.out.println(notebookID);
+
+
+    	/** リスト化するディレクトリ名を格納 */
+    	String notebookCategoryName = notebookID;
+
+    	/** リスト化された情報を格納 */
+    	StringBuffer outputText;
+
+    	/** クエストで渡されたファイル名の内容を取得する */
     	// testweb.TextFileReadSample.mainを呼び出して出力を行う
-    	outputText = noteDAO.SelectNoteDAO(notebookID);
+    	//outputText = noteDAO.ListNotebookDAO(notebookCategoryName);
 
     	/** responseのcontentTypeを指定 */
     	//res.setContentType("text/plain;charset=utf-8");
     	res.setContentType(resource.getString("resContentType"));
 
-    	/** responseのgetWriter()を使用し、クライアントに文字列データを返すPrintWriterオブジェクトを作成 */
     	PrintWriter out = res.getWriter();
-    	/** StringBuffer形式のoutputTextをString形式にCast変換してクライアントに返す文字列データを作成し、println()でセットする) */
-        out.println(new String(outputText));
-        /** オブジェクトを閉じてリソースを開放する */
+        //out.println(new String(outputText));
         out.close();
     }
 }

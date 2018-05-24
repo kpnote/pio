@@ -1,4 +1,4 @@
-package BusinessLogic;
+package webServlet;
 
 import java.io.IOException;
 
@@ -11,16 +11,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Beans.NoteReqBean;
+import beans.NoteReqBean;
+import beans.NotebookBean;
 import dao.NoteDAO;
+import dao.textDB.InsertNoteOnText;
 import util.PrintLogger;
 import util.ReplaceInput;
 
-@WebServlet(name = "InsertNote", urlPatterns = { "/InsertNote" })
-public class InsertNote extends HttpServlet {
+@WebServlet(name = "MakeNotebook", urlPatterns = { "/MakeNotebook" })
+public class MakeNotebook extends HttpServlet {
 
 	/** Log出力用PrintLoggerを作成 */
-	PrintLogger printLogger = new PrintLogger(InsertNote.class.getName());
+	PrintLogger printLogger = new PrintLogger(MakeNotebook.class.getName());
 
 	@Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res)
@@ -74,7 +76,30 @@ public class InsertNote extends HttpServlet {
 
     	/** クエストで渡されたファイル名の内容を取得する */
     	// testweb.TextFileReadSample.mainを呼び出して出力を行う
-    	outputText = noteDAO.InsertNoteDAO(noteReqBean);
+    	outputText = noteDAO.MakeNotebookDAO(noteReqBean);
+
+    	/**
+    	 * インデックスを作成 （ListAndMakeIndex.javaから抜粋して一部変更）
+    	 * */
+
+    	/** Log出力用PrintLoggerを作成 */
+    	PrintLogger printLogger = new PrintLogger(InsertNoteOnText.class.getName());
+
+     	/** リクエストからnotebookIDを取得する */
+    	String notebookID = req.getParameter("notebookID");
+    	printLogger.debug(notebookID);
+
+    	/** リスト化するnotebookカテゴリ名を格納 */
+    	String notebookCategoryName = notebookID;
+
+    	/** リスト化されたnotebook情報を格納するBean */
+    	NotebookBean[] notebookBean;
+
+    	/** リスト化されたnotebook情報を取得し、beanに格納 */
+    	notebookBean = noteDAO.ListNotebookDAO(notebookCategoryName.substring(0, notebookCategoryName.indexOf("/")));
+
+    	/** notebookカテゴリ名のディレクトリ配下に、リスト化されたnotebook情報を格納したインデックスファイル（"index.csv"）を作成 */
+    	noteDAO.MakeIndexDAO(notebookCategoryName.substring(0, notebookCategoryName.indexOf("/")), notebookBean);
 
     	/** responseのcontentTypeを指定 */
     	//res.setContentType("text/plain;charset=utf-8");

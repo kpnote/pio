@@ -1,6 +1,6 @@
-package Beans;
+package beans;
 
-public class NoteBean {
+public class NotebookBean {
 
 	public String ID;
 	public String ChildIDTags;
@@ -11,6 +11,8 @@ public class NoteBean {
 	public String ContentTitle;
 	public String ContentDesc;
 	public String ContentStatus;
+	public String Directory;
+	public NoteBean[] Note;
 
 	public String getID() {
 		return ID;
@@ -66,5 +68,16 @@ public class NoteBean {
 	public void setContentStatus(String contentStatus) {
 		ContentStatus = contentStatus;
 	}
-
+	public String getDirectory() {
+		return Directory;
+	}
+	public void setDirectory(String directory) {
+		Directory = directory;
+	}
+	public NoteBean[] getNote() {
+		return Note;
+	}
+	public void setNote(NoteBean[] note) {
+		Note = note;
+	}
 }

@@ -1,10 +1,7 @@
 package dao.textDB;
 
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -13,14 +10,10 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
-import java.nio.file.CopyOption;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
-import Beans.NoteReqBean;
+import beans.NoteReqBean;
 import util.FileMove;
 import util.MakeFileLock;
 import util.PrintLogger;
