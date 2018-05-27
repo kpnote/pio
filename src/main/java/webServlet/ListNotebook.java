@@ -23,7 +23,7 @@ public class ListNotebook extends HttpServlet {
             throws IOException, ServletException {
 
     	/** Log出力用PrintLoggerを作成 */
-    	PrintLogger printLogger = new PrintLogger(InsertNoteOnText.class.getName());
+    	PrintLogger printLogger = new PrintLogger(ListNotebook.class.getName());
 
     	/** propertiesファイルの情報を取得 */
     	ResourceBundle resource = ResourceBundle.getBundle("config");
@@ -42,6 +42,7 @@ public class ListNotebook extends HttpServlet {
     	NotebookBean[] notebookBean;
 
     	/** リスト化されたnotebook情報を取得し、beanに格納 */
+    	printLogger.debug(notebookID);
     	notebookBean = noteDAO.ListNotebookDAO(notebookCategoryName.substring(0, notebookCategoryName.indexOf("/")));
 
     	/** responseのcontentTypeを指定 */

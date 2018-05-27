@@ -12,7 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import beans.NoteReqBean;
+import beans.NotebookBean;
 import dao.NoteDAO;
+import dao.textDB.InsertNoteOnText;
+import util.GetURLResponse;
 import util.PrintLogger;
 import util.ReplaceInput;
 
@@ -54,6 +57,9 @@ public class InsertNote extends HttpServlet {
     	/** 更新対象のnoteのID(ParentID) */
     	noteReqBean.ParentID		= replaceInput.doReplaceInput(req.getParameter("ParentID"));
 
+    	/** reCAPTCHAのトークン */
+    	noteReqBean.RecaptchaResponse = req.getParameter("RecaptchaResponse");
+
     	/** request情報をログに出力 */
     	printLogger.info(req.getRemoteAddr()	/** IPアドレス */
 				+ "," + noteReqBean.ID
@@ -67,21 +73,67 @@ public class InsertNote extends HttpServlet {
 		    	+ "," + noteReqBean.ContentStatus
 		    	+ "," + noteReqBean.notebookID
 		    	+ "," + noteReqBean.ParentID
+		    	+ "," + noteReqBean.RecaptchaResponse
 		    	);
 
-    	/** NoteDAOオブジェクトを作成 */
-    	NoteDAO noteDAO = new NoteDAO();
+    	/** reCAPTCHA認証結果取得用オブジェクトを作成 */
+    	GetURLResponse getUrlResponse = new GetURLResponse();
 
-    	/** クエストで渡されたファイル名の内容を取得する */
-    	// testweb.TextFileReadSample.mainを呼び出して出力を行う
-    	outputText = noteDAO.InsertNoteDAO(noteReqBean);
+    	/** reCAPTCHA認証結果を判定 */
+    	if(getUrlResponse.doGetURLResponse(noteReqBean.RecaptchaResponse) == getUrlResponse.success) {
+        	/** reCAPTCHA認証結果が成功した場合 */
 
-    	/** responseのcontentTypeを指定 */
-    	//res.setContentType("text/plain;charset=utf-8");
-    	res.setContentType(resource.getString("resContentType"));
+    		/** NoteDAOオブジェクトを作成 */
+        	NoteDAO noteDAO = new NoteDAO();
 
-    	PrintWriter out = res.getWriter();
-        out.println(new String(outputText));
-        out.close();
+        	/** リクエストで渡されたファイル名の内容を取得する */
+        	// testweb.TextFileReadSample.mainを呼び出して出力を行う
+        	outputText = noteDAO.InsertNoteDAO(noteReqBean);
+
+        	/**
+        	 * インデックスを作成 （ListAndMakeIndex.javaから抜粋して一部変更）
+        	 * */
+
+        	/** Log出力用PrintLoggerを作成 */
+        	PrintLogger printLogger = new PrintLogger(InsertNoteOnText.class.getName());
+
+         	/** リクエストからnotebookIDを取得する */
+        	String notebookID = req.getParameter("notebookID");
+        	printLogger.debug(notebookID);
+
+        	/** リスト化するnotebookカテゴリ名を格納 */
+        	String notebookCategoryName = notebookID;
+
+        	/** リスト化されたnotebook情報を格納するBean */
+        	NotebookBean[] notebookBean;
+
+        	/** リスト化されたnotebook情報を取得し、beanに格納 */
+        	notebookBean = noteDAO.ListNotebookDAO(notebookCategoryName.substring(0, notebookCategoryName.indexOf("/")));
+
+        	/** notebookカテゴリ名のディレクトリ配下に、リスト化されたnotebook情報を格納したインデックスファイル（"index.csv"）を作成 */
+        	noteDAO.MakeIndexDAO(notebookCategoryName.substring(0, notebookCategoryName.indexOf("/")), notebookBean);
+
+
+        	/** responseのcontentTypeを指定 */
+        	//res.setContentType("text/plain;charset=utf-8");
+        	res.setContentType(resource.getString("resContentType"));
+
+        	/** 処理結果として、便宜的ではあるが、画面に表示 */
+        	PrintWriter out = res.getWriter();
+            out.println(new String(outputText));
+            out.close();
+
+    	} else {
+        	/** reCAPTCHA認証が失敗した場合 */
+
+    		/** responseのcontentTypeを指定 */
+        	res.setContentType(resource.getString("resContentType"));
+
+        	/** reCAPTCHA認証が失敗した事を画面に表示 */
+        	PrintWriter out = res.getWriter();
+            out.println(new String("reCAPTCHA verification Error"));
+            out.close();
+    	}
+
     }
 }

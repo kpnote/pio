@@ -106,8 +106,8 @@ public class InsertNoteOnText {
 
                 	/** テンポラリファイルに書き込む */
                     try(	FileOutputStream fos = new FileOutputStream(tempfilePath);
-                        	OutputStreamWriter osr = new OutputStreamWriter(fos, resource.getString("fileCharSetName"));
-                        	BufferedWriter filewriter = new BufferedWriter(osr);
+                        	OutputStreamWriter osw = new OutputStreamWriter(fos, resource.getString("fileCharSetName"));
+                        	BufferedWriter filewriter = new BufferedWriter(osw);
                     		){
 //            			File tempfile = new File(tempfilePath);
 //            			FileWriter filewriter = new FileWriter(tempfile, false);

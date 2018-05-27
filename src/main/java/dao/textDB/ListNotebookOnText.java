@@ -38,6 +38,9 @@ public class ListNotebookOnText {
 		/** ファイル情報を格納する変数を作成 */
 		NotebookBean[] notebookBean = null;
 
+    	/** ログ出力（引数をログに出力） */
+		printLogger.debug(notebookCategoryName);
+
     	/** 引数として渡されたnotebookCategoryNameに値がセットされている場合、
     	 * targetFolderPathにnotebookCategoryNameをappendする。 */
 		if(notebookCategoryName.equals(null)) {
@@ -50,7 +53,7 @@ public class ListNotebookOnText {
 
         try {
         	/** list処理開始時間を出力 */
-        	printLogger.debug("Select Start:" + System.currentTimeMillis());
+        	printLogger.debug("Select Start");
 
         	/** 対象ディレクトリのFileオブジェクトを作成 */
         	File dir = new File(targetFolderPath);
@@ -98,7 +101,7 @@ public class ListNotebookOnText {
         		int to = files[i].getPath().lastIndexOf(".");
         		/** ディレクトリのpathで使われているセパレータを見て、Linux環境（/）かWindows環境（\\）かを確認する */
         		if( files[i].getPath().lastIndexOf(resource.getString("serverPathSeparetorLinux")) > 0 ) {
-            		from = files[i].getPath().lastIndexOf(resource.getString("serverPathSeparetorLinux"));
+            		from = files[i].getPath().lastIndexOf(resource.getString("serverPathSeparetorLinux")) + 1;
         		} else {
             		from = files[i].getPath().lastIndexOf(resource.getString("serverPathSeparetorWindows")) + 1;
         		}
@@ -156,7 +159,7 @@ public class ListNotebookOnText {
         	}
 
         	/** select処理開始時間を出力 */
-        	printLogger.debug("Select End:" + System.currentTimeMillis());
+        	printLogger.debug("Select End");
 
         } catch (Exception ex) {
             //例外発生時処理

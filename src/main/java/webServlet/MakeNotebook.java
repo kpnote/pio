@@ -15,6 +15,7 @@ import beans.NoteReqBean;
 import beans.NotebookBean;
 import dao.NoteDAO;
 import dao.textDB.InsertNoteOnText;
+import util.GetURLResponse;
 import util.PrintLogger;
 import util.ReplaceInput;
 
@@ -56,6 +57,9 @@ public class MakeNotebook extends HttpServlet {
     	/** 更新対象のnoteのID(ParentID) */
     	noteReqBean.ParentID		= replaceInput.doReplaceInput(req.getParameter("ParentID"));
 
+    	/** reCAPTCHAのトークン */
+    	noteReqBean.RecaptchaResponse = req.getParameter("RecaptchaResponse");
+
     	/** request情報をログに出力 */
     	printLogger.info(req.getRemoteAddr()	/** IPアドレス */
 				+ "," + noteReqBean.ID
@@ -71,42 +75,60 @@ public class MakeNotebook extends HttpServlet {
 		    	+ "," + noteReqBean.ParentID
 		    	);
 
-    	/** NoteDAOオブジェクトを作成 */
-    	NoteDAO noteDAO = new NoteDAO();
+    	/** reCAPTCHA認証結果取得用オブジェクトを作成 */
+    	GetURLResponse getUrlResponse = new GetURLResponse();
 
-    	/** クエストで渡されたファイル名の内容を取得する */
-    	// testweb.TextFileReadSample.mainを呼び出して出力を行う
-    	outputText = noteDAO.MakeNotebookDAO(noteReqBean);
+    	/** reCAPTCHA認証結果を判定 */
+    	if(getUrlResponse.doGetURLResponse(noteReqBean.RecaptchaResponse) == getUrlResponse.success) {
+        	/** reCAPTCHA認証結果が成功した場合 */
 
-    	/**
-    	 * インデックスを作成 （ListAndMakeIndex.javaから抜粋して一部変更）
-    	 * */
+        	/** NoteDAOオブジェクトを作成 */
+        	NoteDAO noteDAO = new NoteDAO();
 
-    	/** Log出力用PrintLoggerを作成 */
-    	PrintLogger printLogger = new PrintLogger(InsertNoteOnText.class.getName());
+        	/** クエストで渡されたファイル名の内容を取得する */
+        	// testweb.TextFileReadSample.mainを呼び出して出力を行う
+        	outputText = noteDAO.MakeNotebookDAO(noteReqBean);
 
-     	/** リクエストからnotebookIDを取得する */
-    	String notebookID = req.getParameter("notebookID");
-    	printLogger.debug(notebookID);
+        	/**
+        	 * インデックスを作成 （ListAndMakeIndex.javaから抜粋して一部変更）
+        	 * */
 
-    	/** リスト化するnotebookカテゴリ名を格納 */
-    	String notebookCategoryName = notebookID;
+        	/** Log出力用PrintLoggerを作成 */
+        	PrintLogger printLogger = new PrintLogger(InsertNoteOnText.class.getName());
 
-    	/** リスト化されたnotebook情報を格納するBean */
-    	NotebookBean[] notebookBean;
+         	/** リクエストからnotebookIDを取得する */
+        	String notebookID = req.getParameter("notebookID");
+        	printLogger.debug(notebookID);
 
-    	/** リスト化されたnotebook情報を取得し、beanに格納 */
-    	notebookBean = noteDAO.ListNotebookDAO(notebookCategoryName.substring(0, notebookCategoryName.indexOf("/")));
+        	/** リスト化するnotebookカテゴリ名を格納 */
+        	String notebookCategoryName = notebookID;
 
-    	/** notebookカテゴリ名のディレクトリ配下に、リスト化されたnotebook情報を格納したインデックスファイル（"index.csv"）を作成 */
-    	noteDAO.MakeIndexDAO(notebookCategoryName.substring(0, notebookCategoryName.indexOf("/")), notebookBean);
+        	/** リスト化されたnotebook情報を格納するBean */
+        	NotebookBean[] notebookBean;
 
-    	/** responseのcontentTypeを指定 */
-    	//res.setContentType("text/plain;charset=utf-8");
-    	res.setContentType(resource.getString("resContentType"));
+        	/** リスト化されたnotebook情報を取得し、beanに格納 */
+        	notebookBean = noteDAO.ListNotebookDAO(notebookCategoryName.substring(0, notebookCategoryName.indexOf("/")));
 
-    	PrintWriter out = res.getWriter();
-        out.println(new String(outputText));
-        out.close();
+        	/** notebookカテゴリ名のディレクトリ配下に、リスト化されたnotebook情報を格納したインデックスファイル（"index.csv"）を作成 */
+        	noteDAO.MakeIndexDAO(notebookCategoryName.substring(0, notebookCategoryName.indexOf("/")), notebookBean);
+
+        	/** responseのcontentTypeを指定 */
+        	//res.setContentType("text/plain;charset=utf-8");
+        	res.setContentType(resource.getString("resContentType"));
+
+        	PrintWriter out = res.getWriter();
+            out.println(new String(outputText));
+            out.close();
+    	} else {
+        	/** reCAPTCHA認証が失敗した場合 */
+
+    		/** responseのcontentTypeを指定 */
+        	res.setContentType(resource.getString("resContentType"));
+
+        	/** reCAPTCHA認証が失敗した事を画面に表示 */
+        	PrintWriter out = res.getWriter();
+            out.println(new String("reCAPTCHA verification Error"));
+            out.close();
+    	}
     }
 }

@@ -15,6 +15,8 @@ public class NoteReqBean {
 	public String notebookID;
 	public String ParentID;
 
+	public String RecaptchaResponse; /** reCAPTCHA認証のトークン */
+
 	public String getID() {
 		return ID;
 	}
@@ -82,5 +84,10 @@ public class NoteReqBean {
 	public void setParentID(String parentID) {
 		ParentID = parentID;
 	}
-
+	public String getRecaptchaResponse() {
+		return RecaptchaResponse;
+	}
+	public void setRecaptchaResponse(String recaptchaResponse) {
+		RecaptchaResponse = recaptchaResponse;
+	}
 }
