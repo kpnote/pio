@@ -79,7 +79,8 @@ public class MakeNotebook extends HttpServlet {
     	GetURLResponse getUrlResponse = new GetURLResponse();
 
     	/** reCAPTCHA認証結果を判定 */
-    	if(getUrlResponse.doGetURLResponse(noteReqBean.RecaptchaResponse) == getUrlResponse.success) {
+    	if((resource.getString("useRECAPTCHA").equals(resource.getString("unUse")))
+    			|| getUrlResponse.doGetURLResponse(noteReqBean.RecaptchaResponse) == getUrlResponse.success) {
         	/** reCAPTCHA認証結果が成功した場合 */
 
         	/** NoteDAOオブジェクトを作成 */
