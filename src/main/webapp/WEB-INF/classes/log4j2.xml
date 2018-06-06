@@ -7,8 +7,8 @@
 
     <RollingFile
       name="AccessLogFile"
-      fileName="C:\develop\tomcat80\logs\tomcat_access.log"
-      filePattern="C:\develop\tomcat80\logs\tomcat_access.%d{yyyy-MM-dd}.log"
+      fileName="/var/pio/logs/tomcat/tomcat_access.log"
+      filePattern="/var/pio/logs/tomcat/tomcat_access.%d{yyyy-MM-dd}.log"
     >
       <PatternLayout>
         <Pattern>%d %p %logger{36} [%t] %m%n</Pattern>
@@ -16,7 +16,7 @@
 
       <TimeBasedTriggeringPolicy />
         <DefaultRolloverStrategy>
-          <Delete basePath="C:\develop\tomcat80\logs" maxDepth="1">
+          <Delete basePath="/var/pio/logs/tomcat" maxDepth="1">
             <IfFileName glob="tomcat_access*.log.gz" />
             <IfLastModified age="30d" />
           </Delete>
@@ -24,7 +24,7 @@
 
     </RollingFile>
 
-    <File name="ErrorLogFile" fileName="C:\develop\tomcat80\logs\tomcat_error.log">
+    <File name="ErrorLogFile" fileName="/var/pio/logs/tomcat/tomcat_error.log">
       <PatternLayout>
         <Pattern>%d %p %logger{36} [%t] %m%n</Pattern>
       </PatternLayout>

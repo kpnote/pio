@@ -109,6 +109,10 @@ public class MakeNotebookOnText {
             			/** 日時を取得（noteの更新日時、新規登録日時に使用） */
             			LocalDateTime localDateTime = LocalDateTime.now();
 
+            			/** index.csvに書き込むnotebook.csvのタイトル用としてContentTitleの１行目を取得 */
+            			String[] ContentTitleLines = noteReqBean.ContentTitle.split("\t"); /** ContentTitleを \t でsplit */
+            			String ContentTitleFirstLine = ContentTitleLines[0];               /** ContentTitleを \t でsplitした結果の[0]をContentTitleの1行目とする */
+
                         /** テンポラリファイルを更新する
                          * ファイル読み込み処理で取得したcsvファイル情報をテンポラリファイルに書き込む
                          * 新規登録データの親IDに指定されたデータに対しては、
@@ -124,7 +128,8 @@ public class MakeNotebookOnText {
                 					  		+ "\",\"" + noteReqBean.UpdateDate
                 					  		+ "\",\"" + noteReqBean.DeleteDate
                 					  		+ "\",\"" + noteReqBean.PDCAPhase
-                					  		+ "\",\"" + noteReqBean.ContentTitle.substring(0, noteReqBean.ContentTitle.indexOf("\t"))
+                					  		//+ "\",\"" + noteReqBean.ContentTitle.substring(0, noteReqBean.ContentTitle.indexOf("\t"))
+                					  		+ "\",\"" + ContentTitleFirstLine
                 					  		+ "\",\"" + noteReqBean.ContentDesc
                 					  		+ "\",\"" + noteReqBean.ContentStatus
                 					  		+ "\"");
