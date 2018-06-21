@@ -20,6 +20,11 @@ public class SelectNoteOnText {
         StringBuffer sb = new StringBuffer();
 
         try {
+        	//TODO:読み込み処理の途中で書き込み処理が行われ、読み込み対象ファイルが差し変わった場合にどのような処理になるかを検討する（今はアイディアがない）
+            //     懸念
+        	//     １．読み込みエラー
+        	//     ２．データ不整合　現在は、ファイル末尾に追加するだけだが、途中のレコードを更新する処理を追加した場合に、不整合が起きる可能性がある
+
         	/** select処理開始時間を出力 */
         	printLogger.debug("Select Start");
 

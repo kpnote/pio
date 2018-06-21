@@ -18,7 +18,12 @@ import util.PrintLogger;
 
 public class ListNotebookOnText {
 
-    public NotebookBean[] execute(String notebookCategoryName) {
+
+	/**
+	 * @param notebookCategoryName ファイル一覧を返す対象ディレクトリ名
+	 * @return NotebookBean 対象ディレクトリのファイル一覧
+	 */
+	public NotebookBean[] execute(String notebookCategoryName) {
 
     	/** Log出力用PrintLoggerを作成 */
     	PrintLogger printLogger = new PrintLogger(ListNotebookOnText.class.getName());
@@ -48,8 +53,6 @@ public class ListNotebookOnText {
     	} else {
     		targetFolderPath = folderPath + notebookCategoryName;
     	}
-
-        StringBuffer sb = new StringBuffer();
 
         try {
         	/** list処理開始時間を出力 */
@@ -122,35 +125,39 @@ public class ListNotebookOnText {
                     /** 読み込んだファイルから１行読み込む */
     				String line = br.readLine();
 
-    				/** 文字列をデリミタで分割し、配列に格納
-    				 * splitについては、分割された後で最後の項目が空白の場合でも配列に格納されるように、
-    				 * 第二引数に-1を設定
-    				 *  */
-    				String[] sbLineTmp = line.substring(1, line.length() -1).split("\",\"", -1);
+    				/** 読み込んだ行がnullではない場合 */
+    				if(line != null) {
 
-            		/** ChildIDTagsをセットする*/
-            		notebookBean[i].setChildIDTags(sbLineTmp[1]);
+        				/** 文字列をデリミタで分割し、配列に格納
+        				 * splitについては、分割された後で最後の項目が空白の場合でも配列に格納されるように、
+        				 * 第二引数に-1を設定
+        				 *  */
+        				String[] sbLineTmp = line.substring(1, line.length() -1).split("\",\"", -1);
 
-            		/** CreateDateをセットする*/
-            		notebookBean[i].setCreateDate(sbLineTmp[2]);
+                		/** ChildIDTagsをセットする*/
+                		notebookBean[i].setChildIDTags(sbLineTmp[1]);
 
-            		///** UpdateDateをセットする*/
-            		//notebookBean[i].setUpdateDate(sbLineTmp[3]);
+                		/** CreateDateをセットする*/
+                		notebookBean[i].setCreateDate(sbLineTmp[2]);
 
-            		/** DeleteDateをセットする*/
-            		notebookBean[i].setDeleteDate(sbLineTmp[4]);
+                		///** UpdateDateをセットする*/
+                		//notebookBean[i].setUpdateDate(sbLineTmp[3]);
 
-            		/** PDCAPhaseをセットする*/
-            		notebookBean[i].setPDCAPhase(sbLineTmp[5]);
+                		/** DeleteDateをセットする*/
+                		notebookBean[i].setDeleteDate(sbLineTmp[4]);
 
-            		/** NotebookTitle（〇〇の件）をセットする*/
-            		notebookBean[i].setContentTitle(sbLineTmp[6]);
+                		/** PDCAPhaseをセットする*/
+                		notebookBean[i].setPDCAPhase(sbLineTmp[5]);
 
-            		/** ContentDescをセットする*/
-            		notebookBean[i].setContentDesc(sbLineTmp[7]);
+                		/** NotebookTitle（〇〇の件）をセットする*/
+                		notebookBean[i].setContentTitle(sbLineTmp[6]);
 
-            		/** ContentStatusをセットする*/
-            		notebookBean[i].setContentStatus(sbLineTmp[8]);
+                		/** ContentDescをセットする*/
+                		notebookBean[i].setContentDesc(sbLineTmp[7]);
+
+                		/** ContentStatusをセットする*/
+                		notebookBean[i].setContentStatus(sbLineTmp[8]);
+    				}
 
                 } catch (IOException ex) {
                     /** 例外発生時処理 */
