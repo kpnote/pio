@@ -22,13 +22,13 @@ import java.util.ResourceBundle;
  * @author home401
  *
  */
-public class GetURLResponse {
+public class UseReCAPTCHA {
 
 	public boolean success = true;
 	public boolean failure = false;
 
 	/** Logo—Í—pPrintLogger‚ğì¬ */
-	private PrintLogger printLogger = new PrintLogger(GetURLResponse.class.getName());
+	private PrintLogger printLogger = new PrintLogger(UseReCAPTCHA.class.getName());
 
 	/**
 	 * @param reCAPTCHAToken

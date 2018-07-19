@@ -15,7 +15,7 @@ import beans.NoteReqBean;
 import beans.NotebookBean;
 import dao.NoteDAO;
 import dao.textDB.InsertNoteOnText;
-import util.GetURLResponse;
+import util.UseReCAPTCHA;
 import util.PrintLogger;
 import util.ReplaceInput;
 
@@ -76,11 +76,11 @@ public class MakeNotebook extends HttpServlet {
 		    	);
 
     	/** reCAPTCHA認証結果取得用オブジェクトを作成 */
-    	GetURLResponse getUrlResponse = new GetURLResponse();
+    	UseReCAPTCHA useReCAPTCHA = new UseReCAPTCHA();
 
     	/** reCAPTCHA認証結果を判定 */
     	if((resource.getString("useRECAPTCHA").equals(resource.getString("unUse")))
-    			|| getUrlResponse.doGetURLResponse(noteReqBean.RecaptchaResponse) == getUrlResponse.success) {
+    			|| useReCAPTCHA.doGetURLResponse(noteReqBean.RecaptchaResponse) == useReCAPTCHA.success) {
         	/** reCAPTCHA認証結果が成功した場合 */
 
         	/** NoteDAOオブジェクトを作成 */
