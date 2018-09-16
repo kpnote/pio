@@ -1,0 +1,195 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+
+    <!--
+        必要に応じて、次のメタ タグでコンテンツ セキュリティ ポリシーをカスタマイズします。default-src に 'unsafe-inline' を追加して、インライン JavaScript を有効にします。
+        詳細については、http://go.microsoft.com/fwlink/?LinkID=617521 を参照してください。
+    -->
+    <meta http-equiv="Content-Security-Policy"
+          content="
+          default-src 'self' data: gap:
+          https://ssl.gstatic.com 'unsafe-eval'
+          www.google-analytics.com 'unsafe-inline'
+          www.googletagmanager.com 'unsafe-inline'
+          pagead2.googlesyndication.com 'unsafe-inline'
+          adservice.google.co.jp 'unsafe-inline'
+          adservice.google.com 'unsafe-inline'
+          www.google.com 'unsafe-inline'
+          www.gstatic.com 'unsafe-inline';
+          style-src 'self' 'unsafe-inline';
+          media-src *;
+          frame-src *;">
+
+    <title>PDCAちゃんねる</title>
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+
+    <link href="css/index.css" rel="stylesheet" />
+    <link href="css/jquery.mobile-1.4.5.min.css" rel="stylesheet" />
+    <link href="css/pdcaLinkMemoCustom.min.css" rel="stylesheet" />
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-75263769-4"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-75263769-4');
+    </script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-2381112301819113",
+            enable_page_level_ads: true
+        });
+    </script>
+
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script>
+        function validateRecaptcha(code) {
+            if (!!code) {
+                $('#insertPlusDataToSVRDiv').show();
+            }
+        }
+    </script>
+
+</head>
+<body>
+    <h1> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /></h1>
+    <h1> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /></h1>
+
+    <!-- index.html、notebook.htmlでソースはほぼ同じ。index.htmlの場合、id="one"のpageが手前、notebook.htmlの場合はid="four"が手前に来る。-->
+    <div data-role="page" id="two">
+
+        <!--        <div data-role="header" data-id="common_header" data-position="fixed" data-tap-toggle="false">
+        <h1>New memo to list</h1>
+    </div> -->
+        <!-- /header -->
+        <div class="ui-bar ui-bar-a">
+            <h3>PDCAちゃんねる (<a href="../" data-ajax="false">Topへ</a>)(<a href="../menu/" data-ajax="false">Menuへ</a>)</h3>
+        </div>
+        PDCAちゃんねるは色んな事に対してPDCA形式でフィクション（虚構）を連ねる掲示板です。<br />
+        PDCAちゃんねるのコンテンツは全てフィクションです。<br />
+        フィクションを真に受ける人、信じて疑わない人はこのサイトを利用しないでください。<br />
+        <br />
+        <h3>スレッド作成画面</h3>
+        投稿者は、同じスレッドが存在しないかどうか確認してからスレッド作成のご検討をお願いします。<br />
+        投稿者は、最初はテストカテゴリでテストをお願いします。<br />
+        投稿者は、投稿する内容に対して、法律、道徳、倫理、公序良俗に反しない、迷惑行為ではない、利用者及び投稿元のコメントに対して最良の案を投稿をすることとします。<br />
+        投稿者は、PDCAちゃんねる以外のサイトのコンテンツの転載については、転載元サイトの規約を遵守することとします。（コンテンツタイトルの転載可否もあります。リンクのみに対しても転載可否がある場合がります。）<br />
+        投稿者は、当サイトに対して著作者人格権を行使しないものとします。<br />
+
+        <div role="main" class="ui-content">
+            <div id="insertitem">
+                <div class="ui-field-contain">
+                    <label for="entry_PDCAPhase">登録カテゴリ: </label>
+                    <select name="entry_notebookCategory" id="entry_notebookCategory" class="entry_notebookCategory">
+                        <option value="test">テスト</option>
+                        <option value="news">ニュース</option>
+                        <option value="socialissues">社会の課題</option>
+                        <option value="workissues">仕事の課題</option>
+                        <option value="interest">趣味・興味・研究</option>
+                        <option value="diary">日記</option>
+                    </select>
+                    <label for="entry_PDCAPhase">PDCA Phase: </label>
+                    <select name="entry_PDCAPhase" id="entry_PDCAPhase" class="entry_PDCAPhase">
+                        <option value="P">(P) Plan</option>
+                        <option value="D">(D) Do</option>
+                        <option value="C">(C) Check</option>
+                        <option value="A">(A) Action</option>
+                    </select>
+
+                    <label for="entry_ContentTitle">Content Title: <br />（1行目はスレッドのタイトルでも使用します。）</label>
+                    <div class="ui-input-search ui-body-inherit ui-corner-all ui-shadow-inset ui-input-has-clear">
+                        <span style="width:1000px;">
+                            <!--<textarea class="entry_ContentTitle" name="entry_ContentTitle" data-type="search" data-enhanced="true" data-inset="false" id="pre-rendered-example-input" placeholder="Input memo content...(If same content is displayed below, you can click to add it to list.)" value=""></textarea>-->
+                            <textarea class="entry_ContentTitle" name="entry_ContentTitle" type="text"></textarea>
+                        </span>
+                    </div>
+                    <div data-role="controlgroup" data-enhanced="true" data-filter="true" data-filter-reveal="true" data-input="#pre-rendered-example-input" class="ui-controlgroup ui-controlgroup-vertical ui-corner-all">
+                        <div class="ui-controlgroup-controls">
+                            <a></a>
+                        </div>
+                    </div>
+
+                    <label class="adminColumn" for="entry_comment">ChildIDTags: </label>
+                    <input class="entry_ChildIDTags adminColumn" name="entry_ChildIDTags" type="text" />
+                    <label class="adminColumn" for="entry_comment">CreateDate: </label>
+                    <input class="entry_CreateDate adminColumn" name="entry_CreateDate" type="text" />
+                    <label class="adminColumn" for="entry_comment">UpdateDate: </label>
+                    <input class="entry_UpdateDate adminColumn" name="entry_UpdateDate" type="text" />
+                    <label class="adminColumn" for="entry_comment">DeleteDate: </label>
+                    <input class="entry_DeleteDate adminColumn" name="entry_DeleteDate" type="text" />
+
+                    <label class="adminColumn" for="entry_comment">ContentDesc: </label>
+                    <input class="entry_ContentDesc adminColumn" name="entry_ContentDesc" type="text" />
+                    <label class="adminColumn" for="entry_comment">ContentStatus: </label>
+                    <input class="entry_ContentStatus adminColumn" name="entry_ContentStatus" type="text" />
+
+                    <br />
+                    <div class="g-recaptcha" data-callback="validateRecaptcha" data-sitekey="6Lc8zlsUAAAAAOBcpLLl2RjnRslFF_DQ35DUuPVP"></div>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+
+                    <fieldset class="ui-grid-a">
+                        <!--<div class="ui-block-a"><input type="button" value="New" id="insertPlusData" /></div>-->
+                        <div class="ui-block-a" id="insertPlusDataToSVRDiv" style="display:none;"><input type="button" value="作成＆書き込み" id="makeNewNotebookToSVR" /></div>
+                    </fieldset>
+                </div>
+            </div>
+            <br />
+            <center>
+        PDCAちゃんねるのコンテンツは全てフィクションです。<br />
+        PDCAちゃんねるは、殆どの問題は身近な人に相談することで解決に向かい絆も深まると信じています。<br />
+            </center>
+        </div><!-- /content -->
+        <!--
+    <div data-role="footer" data-position="fixed" data-id="common_footer" data-tap-toggle="false" class="footer">
+        <div data-role="navbar" data-iconpos="bottom">
+            <ul>
+                <li><a data-icon="back" data-rel="back"></a></li>
+                <li><a href="#one" data-icon="home" class="outputwbslist"></a></li>
+                <li><a href="#two" data-icon="plus" class="plusWbsData" data-transition="slide"></a></li>-->
+        <!--                    <li><a data-icon="minus" class="adminMode" data-transition="slide"></a></li> -->
+        <!--</ul>
+    </div>
+        </div>-->
+        <!-- /footer -->
+
+    </div><!-- /page two -->
+
+
+    <div data-role="page" id="one">
+
+        <div id="selecteditem">
+                        <input class="entry_ID" name="entry_ID" type="hidden" />
+        </div>
+
+    </div><!-- /page -->
+
+    <!-- Cordova のリファレンス。アプリのビルド時にアプリに追加されます。 -->
+    <!--    <script src="cordova.js"></script>-->
+    <script src="scripts/platformOverrides.js"></script>
+
+    <script src="scripts/jquery.min.js"></script>
+
+    <script src="scripts/jquery.mobile-1.4.5.min.js"></script>
+
+    <script src="scripts/jsConfig.js"></script>
+    <script src="scripts/index.js"></script>
+    <!--    <script src="scripts/admob.js"></script>-->
+    <script src="scripts/index-db.js"></script>
+</body>
+</html>

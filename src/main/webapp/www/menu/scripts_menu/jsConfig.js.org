@@ -1,0 +1,49 @@
+﻿//on Repository
+var debugFlag = true;
+//var debugFlag = false;
+
+var WebSiteFlag = true;
+
+//index-db.js
+//DB関連のconfig
+var dbName = 'Test1';
+var version = '1.0';
+var displayName = 'Test1';
+var estimatedSize = 65536;
+var dbType = 'SQLite'; // WEBSQL or SQLiteで使用DBを切り替え
+if (debugFlag == true) {
+    dbType = 'WEBSQL';  // chromeデバッグ時はSQLite pluginが動かない為、WEBSQLにする
+}
+
+
+//ColorName
+var TitleColorP = "LightPink";
+var TitleColorD = "LightYellow";
+var TitleColorC = "LightBlue";
+var TitleColorA = "LightGreen";
+
+
+// DB util
+var app;
+
+app = {
+    init: function () {
+    }
+}
+
+app.db = {
+
+    openDB: function () {
+        var rtnStrOpenDB;
+
+        if (dbType == 'WEBSQL') {
+            rtnStrOpenDB = openDatabase(dbName, version, displayName, estimatedSize);
+        } else {
+            rtnStrOpenDB = window.sqlitePlugin.openDatabase({ name: "my.db" });
+        }
+
+        return rtnStrOpenDB;
+    }
+
+};
+

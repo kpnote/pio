@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+
+    <meta http-equiv="Content-Security-Policy"
+          content="
+          default-src 'self' data: gap:
+          https://ssl.gstatic.com 'unsafe-eval'
+          www.google-analytics.com 'unsafe-inline'
+          www.googletagmanager.com 'unsafe-inline'
+          pagead2.googlesyndication.com 'unsafe-inline'
+          adservice.google.co.jp 'unsafe-inline'
+          adservice.google.com 'unsafe-inline';
+          style-src 'self' 'unsafe-inline';
+          media-src *;
+          frame-src *;">
+
+    <title>PDCAちゃんねる</title>
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+
+    <link href="../common/css/index.css" rel="stylesheet" />
+    <link href="../common/css/jquery.mobile-1.4.5.min.css" rel="stylesheet" />
+    <link href="../common/css/pdcaLinkMemoCustom.min.css" rel="stylesheet" />
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-75263769-4"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-75263769-4');
+    </script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-2381112301819113",
+            enable_page_level_ads: true
+        });
+    </script>
+
+</head>
+<body>
+    <div class="ui-bar ui-bar-a">
+        <h3>PDCAちゃんねる(<a href="../" data-ajax="false">Topへ</a>)</h3>
+    </div>
+
+    ☆Information
+    <div class="threadList threadList_on_page_one">
+        <ul data-role="listview" data-filter="false" class="ui-listview">
+            <li data-entry_id="1" data-entry_notebook_id="__info/index" style="border-left:10px solid LightPink; white-space:normal;padding:+3% +1%">このサイトについて（利用規約等）</li>
+        </ul>
+    </div>
+    <hr />
+    ☆コンテンツメニュー<br />
+    PDCAちゃんねるは色んな事に対してPDCA形式でフィクション（虚構）を連ねる掲示板です。<br />
+    PDCAちゃんねるのコンテンツは全てフィクションです。<br />
+    フィクションを真に受ける人、信じて疑わない人はこのサイトを利用しないでください。<br />
+    <hr />
+    ・コンテンツメニュー
+    <div class="threadList threadList_on_page_one">
+        <ul data-role="listview" data-filter="false" class="ui-listview">
+            <li data-entry_id="1" data-entry_notebook_id="news/index" style="border-left:10px solid LightPink; white-space:normal;padding:+3% +1%">ニュース</li>
+            <li data-entry_id="1" data-entry_notebook_id="socialissues/index" style="border-left:10px solid LightPink; white-space:normal;padding:+3% +1%">社会の課題</li>
+            <li data-entry_id="1" data-entry_notebook_id="workissues/index" style="border-left:10px solid LightPink; white-space:normal;padding:+3% +1%">仕事の課題</li>
+            <li data-entry_id="1" data-entry_notebook_id="interest/index" style="border-left:10px solid LightPink; white-space:normal;padding:+3% +1%">趣味・興味・研究</li>
+            <li data-entry_id="1" data-entry_notebook_id="diary/index" style="border-left:10px solid LightPink; white-space:normal;padding:+3% +1%">日記</li>
+            <li data-entry_id="1" data-entry_notebook_id="test/index" style="border-left:10px solid LightPink; white-space:normal;padding:+3% +1%">テスト</li>
+        </ul>
+    </div>
+    <hr />
+    ・<a href="../client/makeNotebook.html" data-ajax="false">スレッド作成</a>
+    <br />
+    <center>
+        PDCAちゃんねるのコンテンツは全てフィクションです。<br />
+        PDCAちゃんねるは、殆どの問題は身近な人に相談することで解決に向かい絆も深まると信じています。<br />
+    </center>
+    <script src="../common/scripts/jquery.min.js"></script>
+
+    <script src="../common/scripts/jquery.mobile-1.4.5.min.js"></script>
+
+    <script src="./scripts_menu/jsConfig.js"></script>
+    <!-- <script src="./scripts_menu/index.js"></script>-->
+    <!--    <script src="scripts/admob.js"></script>-->
+    <script src="./scripts_menu/index-db.js"></script>
+
+</body>
+</html>

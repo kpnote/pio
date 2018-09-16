@@ -1,0 +1,385 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+
+    <!--
+        必要に応じて、次のメタ タグでコンテンツ セキュリティ ポリシーをカスタマイズします。default-src に 'unsafe-inline' を追加して、インライン JavaScript を有効にします。
+        詳細については、http://go.microsoft.com/fwlink/?LinkID=617521 を参照してください。
+    -->
+    <meta http-equiv="Content-Security-Policy"
+          content="
+          default-src 'self' data: gap:
+          https://ssl.gstatic.com 'unsafe-eval'
+          www.google-analytics.com 'unsafe-inline'
+          www.googletagmanager.com 'unsafe-inline'
+          pagead2.googlesyndication.com 'unsafe-inline'
+          adservice.google.co.jp 'unsafe-inline'
+          adservice.google.com 'unsafe-inline';
+          style-src 'self' 'unsafe-inline';
+          media-src *;
+          frame-src *;">
+
+    <title>PDCAちゃんねる</title>
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+
+    <link href="css/index.css" rel="stylesheet" />
+    <link href="css/jquery.mobile-1.4.5.min.css" rel="stylesheet" />
+    <link href="css/pdcaLinkMemoCustom.min.css" rel="stylesheet" />
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-75263769-4"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-75263769-4');
+    </script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-2381112301819113",
+            enable_page_level_ads: true
+        });
+    </script>
+
+</head>
+<body>
+    <h1> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /></h1>
+
+    <!-- index.html、notebook.htmlでソースはほぼ同じ。index.htmlの場合、id="one"のpageが手前、notebook.htmlの場合はid="four"が手前に来る。-->
+
+    <div data-role="page" id="one">
+
+        <!-- 2017/09/10 delete -->
+        <!--
+    <div data-role="header" data-id="common_header" data-position="fixed" data-tap-toggle="false">
+        <h1>View</h1>
+    </div>
+    -->
+        <!-- /header -->
+
+        <div id="selecteditem">
+            <h1> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /></h1>
+            <h1> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /></h1>
+            <div class="ui-bar ui-bar-a">
+                <h3>Tapped memo</h3>
+            </div>
+            <div role="main" class="ui-content">
+                <form method="POST" action="">
+                    <div class="ui-field-contain">
+                        <!--
+                                        <label for="entry_comment">ID: </label>
+                                        <input class="entry_ID" name="entry_ID" type="text" readonly />
+                    -->
+                        <input class="entry_ID" name="entry_ID" type="hidden" />
+                        <label for="entry_PDCAPhase">PDCA Phase: </label>
+                        <select name="entry_PDCAPhase" id="entry_PDCAPhase" class="entry_PDCAPhase">
+                            <option value="P">(P) Plan</option>
+                            <option value="D">(D) Do</option>
+                            <option value="C">(C) Check</option>
+                            <option value="A">(A) Action</option>
+                        </select>
+
+                        <label for="entry_ContentTitle">Content Title: </label>
+                        <textarea class="entry_ContentTitle" name="entry_ContentTitle" type="text"></textarea>
+
+                        <label class="adminColumn toggleColumn" for="entry_comment">ChildIDTags(need space between): </label>
+                        <input class="entry_ChildIDTags adminColumn toggleColumn" name="entry_ChildIDTags" type="text" />
+                        <label class="adminColumn" for="entry_comment">CreateDate: </label>
+                        <input class="entry_CreateDate adminColumn" name="entry_CreateDate" type="text" />
+                        <label class="adminColumn" for="entry_comment">UpdateDate: </label>
+                        <input class="entry_UpdateDate adminColumn" name="entry_UpdateDate" type="text" />
+                        <label class="adminColumn" for="entry_comment">DeleteDate: </label>
+                        <input class="entry_DeleteDate adminColumn" name="entry_DeleteDate" type="text" />
+
+                        <label class="adminColumn" for="entry_comment">ContentDesc: </label>
+                        <input class="entry_ContentDesc adminColumn" name="entry_ContentDesc" type="text" />
+                        <label class="adminColumn" for="entry_comment">ContentStatus: </label>
+                        <input class="entry_ContentStatus adminColumn" name="entry_ContentStatus" type="text" />
+                        <fieldset class="ui-grid-a">
+                            <div class="ui-block-a"><input type="button" value="Update" id="updateIdData" /></div>
+                            <div class="ui-block-b"><a href="#popupDialog" data-rel="popup" data-position-to="window" data-transition="pop" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-delete ui-btn-icon-left ui-btn-b">Delete...</a></div>
+                            <div class="ui-block-a"><input type="button" value="List Branches" id="ListChildData" /></div>
+                            <div data-role="popup" id="popupDialog" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
+                                <div data-role="header" data-theme="a">
+                                    <h1>Delete data</h1>
+                                </div>
+                                <div role="main" class="ui-content">
+                                    <h3 class="ui-title">Really?</h3>
+                                    <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Cancel</a>
+                                    <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow" id="deleteIdData">Delete</a>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+        <div class="ui-bar ui-bar-a" id="pageone_list_title1">
+            <h3>PDCAちゃんねる(<a href="../" data-ajax="false">Topへ</a>)(<a href="../menu/" data-ajax="false">Menuへ</a>)</h3>
+        </div>
+        <div class="ui-bar ui-bar-a" id="pageone_list_title2">
+            <h3>List(Tap memo to open. Hold to leave out)</h3>
+        </div>
+        PDCAちゃんねるは色んな事に対してPDCA形式でフィクション（虚構）を連ねる掲示板です。<br />
+        PDCAちゃんねるのコンテンツは全てフィクションです。<br />
+        フィクションを真に受ける人、信じて疑わない人はこのサイトを利用しないでください。<br />
+        <!--<div class="wbs_selectbox">
+        <fieldset class="ui-grid-a">
+            <div class="ui-block-c"><input type="button" class="wbs_selectbox_setValue" value="&nbsp" /></div>
+            <div class="ui-block-c"><input type="button" class="wbs_selectbox_setValue ui-option-button-P" value="(P)" /></div>
+            <div class="ui-block-c"><input type="button" class="wbs_selectbox_setValue ui-option-button-D" value="(D)" /></div>
+            <div class="ui-block-c"><input type="button" class="wbs_selectbox_setValue ui-option-button-C" value="(C)" /></div>
+            <div class="ui-block-c"><input type="button" class="wbs_selectbox_setValue ui-option-button-A" value="(A)" /></div>
+        </fieldset>
+    </div>-->
+
+        <div class="wbslist" id="wbslist_on_page_one">
+            <ul data-role="listview" data-filter="false">
+                <li></li>
+            </ul>
+        </div>
+
+        <br />
+        <center>
+        PDCAちゃんねるのコンテンツは全てフィクションです。<br />
+        PDCAちゃんねるは、殆どの問題は身近な人に相談することで解決に向かい絆も深まると信じています。<br />
+        </center>
+
+        <div data-role="popup" id="popupLeaveOutDialog" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
+            <div data-role="header" data-theme="a">
+                <h1>Leave out?</h1>
+            </div>
+            <div role="main" class="ui-content">
+                <h3 class="ui-title">Really?</h3>
+                <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Cancel</a>
+                <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow" id="leaveOutIdData">Leave out</a>
+                <label class="adminColumn" for="entry_LeavesID">Leaves ID: </label>
+                <input class="entry_LeavesID adminColumn" name="entry_LeavesID" type="text" />
+                <label for="entry_comment">Content Title: </label>
+                <textarea class="entry_ContentTitle" name="entry_ContentTitle" type="text" readonly></textarea>
+            </div>
+        </div>
+
+        <!-- <div> <button class="outputwbslist" data-icon="home">Home</button> <button id="Plus Data">Plus Data</button> <button id="button1">Create Table</button> <button id="button2">Insert Data</button> </div> -->
+        <!-- <input type="text" value="" id="WBSPageHistory" class="adminColumn" /> -->
+        <div role="main" class="ui-content">
+        </div><!-- /content -->
+        <!--<div data-role="footer" data-position="fixed" data-id="common_footer" data-tap-toggle="false" class="footer">
+    <div data-role="navbar" data-iconpos="bottom">
+        <ul>
+            <li><a data-icon="back" id="navBackPage"></a></li>
+            <li><a href="#one" data-icon="home" class="outputwbslist"></a></li>
+            <li><a href="#two" data-icon="plus" class="plusWbsData" data-transition="slide"></a></li>-->
+        <!--                    <li><a data-icon="minus" class="adminMode" data-transition="slide"></a></li> -->
+        <!--</ul>
+    </div>
+    </div>-->
+        <!-- /footer -->
+
+    </div><!-- /page -->
+
+    <!-- Start of 4th page: #four -->
+    <div data-role="page" id="four">
+
+        <div class="ui-bar ui-bar-a">
+            <h3>PDCAちゃんねる (<a href="../menu/" data-ajax="false">To menu</a>)</h3>
+        </div>
+        このサイトのコンテンツは、全てフィクションです。<br />
+        （現実ではなく、想像上の話を扱う）フィクションの意味が分からない人は、このサイトを利用しないでください。<br />
+        （ご利用が初めての方は<a href="../" data-ajax="false">トップページ</a>に進み注意事項を読んでください。）<br />
+
+        <div id="nametable" class="scroll"></div>
+
+        <div role="main" class="ui-content">
+        </div>
+
+        <fieldset class="ui-grid-solo">
+            <div class="ui-block-a"><input type="button" value="クリップボードへコピー" id="CopyWordrobe" /></div>
+        </fieldset>
+        <br />
+
+        <!--<div data-role="footer" data-position="fixed" data-id="common_footer" data-tap-toggle="false" class="footer">
+        <div data-role="navbar" data-iconpos="bottom">
+            <ul>
+                <li><a data-icon="back" data-rel="back" id="navBackPage"></a></li>
+                <li><a href="#one" data-icon="home" class="outputwbslist"></a></li>-->
+        <!--                    <li><a data-icon="minus" class="adminMode" data-transition="slide"></a></li> -->
+        <!--</ul>
+        </div>
+            </div>-->
+        <!-- /footer -->
+
+    </div><!-- /4th page -->
+    <!-- Start of init page -->
+    <div data-role="page" id="init">
+        <div data-role="header" data-id="dummy_header" data-position="fixed" data-tap-toggle="false">
+            <h1></h1>
+        </div>
+        <div role="main">
+            <input id="notebook_id" name="notebook_id" type="text" value="" />
+            <input id="notebook_length" name="notebook_length" type="text" value="" />
+
+            <!--
+            <div class="threadList" id="threadList_on_page_one">
+                <form class="ui-filterable"><div class="ui-input-search ui-shadow-inset ui-input-has-clear ui-body-inherit ui-corner-all"><input data-type="search" placeholder="Filter items..."><a href="#" tabindex="-1" aria-hidden="true" class="ui-input-clear ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all ui-input-clear-hidden" title="Clear text">Clear text</a></div></form>
+                <ul data-role="listview" data-filter="true" class="ui-listview">
+                    <li data-entry_id="1" data-entry_notebook_id="12345678" style="border-left:10px solid LightPink; white-space:normal;padding:+3% +1%" class="ui-li-static ui-body-inherit ui-first-child ui-last-child">(1) (P) test win</li>
+                    <li data-entry_id="1" data-entry_notebook_id="diary/12345678" style="border-left:10px solid LightPink; white-space:normal;padding:+3% +1%" class="ui-li-static ui-body-inherit ui-first-child ui-last-child">(1) (P) test win</li>
+                </ul>
+            </div>
+                -->
+
+        </div>
+    </div>
+    <!-- /init page-->
+    <!-- Start of second page: #two -->
+    <div data-role="page" id="two">
+
+        <!--        <div data-role="header" data-id="common_header" data-position="fixed" data-tap-toggle="false">
+            <h1>New memo to list</h1>
+        </div> -->
+        <!-- /header -->
+        <div class="ui-bar ui-bar-a">
+            <h3>PDCAちゃんねる (<a data-icon="back" data-rel="back">一覧へ戻る</a>)</h3>
+        </div>
+        <div role="main" class="ui-content">
+            <div id="insertitem">
+                <div class="ui-field-contain">
+                    <label for="entry_PDCAPhase">PDCA Phase: </label>
+                    <select name="entry_PDCAPhase" id="entry_PDCAPhase" class="entry_PDCAPhase">
+                        <option value="P">(P) Plan</option>
+                        <option value="D">(D) Do</option>
+                        <option value="C">(C) Check</option>
+                        <option value="A">(A) Action</option>
+                    </select>
+
+                    <label for="entry_ContentTitle">Content Title: </label>
+                    <div class="ui-input-search ui-body-inherit ui-corner-all ui-shadow-inset ui-input-has-clear">
+                        <span style="width:1000px;">
+                            <!--<textarea class="entry_ContentTitle" name="entry_ContentTitle" data-type="search" data-enhanced="true" data-inset="false" id="pre-rendered-example-input" placeholder="Input memo content...(If same content is displayed below, you can click to add it to list.)" value=""></textarea>-->
+                            <textarea class="entry_ContentTitle" name="entry_ContentTitle" type="text"></textarea>
+                        </span>
+                    </div>
+                    <div data-role="controlgroup" data-enhanced="true" data-filter="true" data-filter-reveal="true" data-input="#pre-rendered-example-input" class="ui-controlgroup ui-controlgroup-vertical ui-corner-all">
+                        <div class="ui-controlgroup-controls">
+                            <a></a>
+                        </div>
+                    </div>
+
+                    <label class="adminColumn" for="entry_comment">ChildIDTags: </label>
+                    <input class="entry_ChildIDTags adminColumn" name="entry_ChildIDTags" type="text" />
+                    <label class="adminColumn" for="entry_comment">CreateDate: </label>
+                    <input class="entry_CreateDate adminColumn" name="entry_CreateDate" type="text" />
+                    <label class="adminColumn" for="entry_comment">UpdateDate: </label>
+                    <input class="entry_UpdateDate adminColumn" name="entry_UpdateDate" type="text" />
+                    <label class="adminColumn" for="entry_comment">DeleteDate: </label>
+                    <input class="entry_DeleteDate adminColumn" name="entry_DeleteDate" type="text" />
+
+                    <label class="adminColumn" for="entry_comment">ContentDesc: </label>
+                    <input class="entry_ContentDesc adminColumn" name="entry_ContentDesc" type="text" />
+                    <label class="adminColumn" for="entry_comment">ContentStatus: </label>
+                    <input class="entry_ContentStatus adminColumn" name="entry_ContentStatus" type="text" />
+                    <fieldset class="ui-grid-a">
+                        <!--<div class="ui-block-a"><input type="button" value="New" id="insertPlusData" /></div>-->
+                        <div class="ui-block-a"><input type="button" value="New" id="insertPlusDataToSVR" /></div>
+                    </fieldset>
+                </div>
+            </div>
+        </div><!-- /content -->
+        <!--
+        <div data-role="footer" data-position="fixed" data-id="common_footer" data-tap-toggle="false" class="footer">
+            <div data-role="navbar" data-iconpos="bottom">
+                <ul>
+                    <li><a data-icon="back" data-rel="back"></a></li>
+                    <li><a href="#one" data-icon="home" class="outputwbslist"></a></li>
+                    <li><a href="#two" data-icon="plus" class="plusWbsData" data-transition="slide"></a></li>-->
+        <!--                    <li><a data-icon="minus" class="adminMode" data-transition="slide"></a></li> -->
+        <!--</ul>
+        </div>
+            </div>-->
+        <!-- /footer -->
+
+    </div><!-- /page two -->
+    <!-- Start of 3rd page: #three -->
+    <div data-role="page" id="three">
+
+        <div class="ui-bar ui-bar-a">
+            <h3>Found memo to List</h3>
+        </div>
+        <div id="selecteditemWithCT" class="ui-field-contain">
+            <!--            <label for="entry_comment">ID: </label>
+                        <input class="entry_ID" name="entry_ID" type="text" readonly /> -->
+            <input class="entry_ID" name="entry_ID" type="hidden" />
+            <label for="entry_comment">PDCA Phase: </label>
+            <select name="entry_PDCAPhase" id="entry_PDCAPhase" class="entry_PDCAPhase" readonly>
+                <option value="P">(P) Plan</option>
+                <option value="D">(D) Do</option>
+                <option value="C">(C) Check</option>
+                <option value="A">(A) Action</option>
+            </select>
+            <label for="entry_comment">Content Title: </label>
+            <textarea class="entry_ContentTitle" name="entry_ContentTitle" type="text" readonly></textarea>
+            <label class="adminColumn" for="entry_comment">ChildIDTags: </label>
+            <input class="entry_ChildIDTags adminColumn" name="entry_ChildIDTags" type="text" readonly />
+            <label class="adminColumn" for="entry_comment">CreateDate: </label>
+            <input class="entry_CreateDate adminColumn" name="entry_CreateDate" type="text" readonly />
+            <label class="adminColumn" for="entry_comment">UpdateDate: </label>
+            <input class="entry_UpdateDate adminColumn" name="entry_UpdateDate" type="text" readonly />
+            <label class="adminColumn" for="entry_comment">DeleteDate: </label>
+            <input class="entry_DeleteDate adminColumn" name="entry_DeleteDate" type="text" readonly />
+            <label class="adminColumn" for="entry_comment">ContentDesc: </label>
+            <input class="entry_ContentDesc adminColumn" name="entry_ContentDesc" type="text" readonly />
+            <label class="adminColumn" for="entry_comment">ContentStatus: </label>
+            <input class="entry_ContentStatus adminColumn" name="entry_ContentStatus" type="text" readonly />
+            <fieldset class="ui-grid-a">
+                <div class="ui-block-a"><input type="button" value="Add To List" id="AddToList" /></div>
+                <a class="ui-btn" data-role="ui-btn" href="#" data-rel="back">Close</a>
+            </fieldset>
+        </div>
+
+        <div class="ui-bar ui-bar-a" style="text-align:left;"><h3>List</h3></div>
+        <div class="wbslist" id="wbslist_on_page_three">
+            <ul data-role="listview" data-filter="true">
+                <li></li>
+            </ul>
+        </div>
+
+        <!-- <div> <button class="outputwbslist" data-icon="home">Home</button> <button id="Plus Data">Plus Data</button> <button id="button1">Create Table</button> <button id="button2">Insert Data</button> </div> -->
+        <div role="main" class="ui-content">
+        </div><!-- /content -->
+
+        <div data-role="footer" data-position="fixed" data-id="common_footer" data-tap-toggle="false" class="footer">
+            <div data-role="navbar" data-iconpos="bottom">
+                <ul>
+                    <li><a href="#" data-icon="back" data-rel="back"></a></li>
+                    <li><a href="#one" data-icon="home" class="outputwbslist"></a></li>
+                    <!--                    <li><a data-icon="minus" class="adminMode" data-transition="slide"></a></li> -->
+                </ul>
+            </div>
+        </div><!-- /footer -->
+
+
+    </div><!-- /three page -->
+    <!-- Cordova のリファレンス。アプリのビルド時にアプリに追加されます。 -->
+    <!--    <script src="cordova.js"></script>-->
+    <script src="scripts/platformOverrides.js"></script>
+
+    <script src="scripts/jquery.min.js"></script>
+
+    <script src="scripts/jquery.mobile-1.4.5.min.js"></script>
+
+    <script src="scripts/jsConfig.js"></script>
+    <script src="scripts/index.js"></script>
+    <!--    <script src="scripts/admob.js"></script>-->
+    <script src="scripts/index-db.js"></script>
+</body>
+</html>

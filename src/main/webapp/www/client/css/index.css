@@ -1,0 +1,27 @@
+body {
+}
+
+textarea {
+    width:100%;
+}
+
+.scroll{
+    overflow: auto;
+}
+
+/* PDCAÉ{É^ÉìÇÃêF */
+.wbs_selectbox_setValue.ui-option-button-P{
+    background-color:LightPink;
+}
+.wbs_selectbox_setValue.ui-option-button-D{
+    background-color:LightYellow;
+}
+.wbs_selectbox_setValue.ui-option-button-C{
+    background-color:LightBlue;
+}
+.wbs_selectbox_setValue.ui-option-button-A{
+    background-color:LightGreen;
+}
+
+
+

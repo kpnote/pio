@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+
+    <meta http-equiv="Content-Security-Policy"
+          content="
+          default-src 'self' data: gap:
+          https://ssl.gstatic.com 'unsafe-eval'
+          www.google-analytics.com 'unsafe-inline'
+          www.googletagmanager.com 'unsafe-inline'
+          pagead2.googlesyndication.com 'unsafe-inline'
+          adservice.google.co.jp 'unsafe-inline'
+          adservice.google.com 'unsafe-inline';
+          style-src 'self' 'unsafe-inline';
+          media-src *;
+          frame-src *;">
+    <title>PDCAちゃんねる</title>
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+
+    <link href="./common/css/index.css" rel="stylesheet" />
+    <link href="./common/css/jquery.mobile-1.4.5.min.css" rel="stylesheet" />
+    <link href="./common/css/pdcaLinkMemoCustom.min.css" rel="stylesheet" />
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-75263769-4"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-75263769-4');
+    </script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-2381112301819113",
+            enable_page_level_ads: true
+        });
+    </script>
+
+</head>
+<body>
+    <div class="ui-bar ui-bar-a">
+        <h3>PDCAちゃんねる</h3>
+    </div>
+    <br />
+    <center>
+        PDCAちゃんねるは色んな事に対してPDCA形式でフィクション（虚構）を連ねる掲示板です。<br />
+                 フィクションを真に受ける人、信じて疑わない人はこのサイトを利用しないでください。<br />
+        <br />
+        <a href="./menu/" data-ajax="false">メニューページへ</a><br />
+    </center>
+    <br />
+    <center>
+        PDCAちゃんねるのコンテンツは全てフィクションです。<br />
+        PDCAちゃんねるは、殆どの問題は身近な人に相談することで解決に向かい絆も深まると信じています。<br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        Github <a href="https://github.com/kpnote/pio">https://github.com/kpnote/pio</a><br />
+        GNU GPLライセンスとして公開しています。<br />
+        Apache Tomcat v8.0(+ Log4j 2.11.0(core、web、api))で動作します。<br />
+                 なお、当ページはAWS + EC2(t2.micro) + AMI Linux + Tomcat v8.0 + Nginxで動かしています。<br />
+                 （テスト環境はWindows+Eclipse(pleiades-4.7.3-ultimate-win-64bit-jre_20180411)です。）<br />
+                 環境に合わせてconfig.propertiesの修正とフォルダ作成、secret.propertiesの移動等が必要です。<br />
+        reCAPTCHA v2を使用する場合は、reCAPTCHAのアカウントとsecret.propertiesの修正が必要です。<br />
+
+    </center>
+    <script src="./common/scripts/jquery.min.js"></script>
+
+    <script src="./common/scripts/jquery.mobile-1.4.5.min.js"></script>
+
+</body>
+</html>
